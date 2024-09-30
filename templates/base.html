@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Questions and Answers</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <script>
+        function showLoading() {
+            document.getElementById("loading").style.display = "block";
+            document.getElementById("thankyou").style.display = "none";
+        }
+
+        function hideLoadingAndShowThankYou() {
+            document.getElementById("loading").style.display = "none";
+            document.getElementById("thankyou").style.display = "block";
+        }
+
+        // Attach event listeners for form submission and response
+        window.addEventListener("DOMContentLoaded", function() {
+            const form = document.querySelector("form");
+            
+            // Show loading message on form submit
+            form.addEventListener("submit", function() {
+                showLoading();
+            });
+
+            // Listen for the form's response and show the "Thank you" message
+            form.addEventListener("ajax:complete", function() {
+                hideLoadingAndShowThankYou();
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Fetch Questions and Answers</h1>
+        <form action="/download/" method="post" onsubmit="showLoading()">
+            <div class="mb-3">
+                <label for="user_input" class="form-label">Enter Username:</label>
+                <input type="text" class="form-control" id="user_input" name="user_input" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Download Excel</button>
+        </form>
+
+        <!-- Loading message -->
+        <div id="loading" class="text-center mt-3" style="display: none;">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Please wait, fetching data...</p>
+        </div>
+
+        <!-- Thank you message -->
+        <div id="thankyou" class="text-center mt-3" style="display: none;">
+            <p>Thank you! Your data has been downloaded.</p>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
